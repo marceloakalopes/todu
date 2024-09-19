@@ -1,3 +1,5 @@
+package com.example.todo.utils
+
 /**
  * Convert a hex color to an *ANSI* escape code.
  *
@@ -10,10 +12,4 @@ fun hexToAnsi(hex: String): MutableMap<String, String> {
     val g = Integer.valueOf(hex.substring(3, 5), 16)
     val b = Integer.valueOf(hex.substring(5, 7), 16)
     return mutableMapOf<String, String>("value" to "\u001B[38;2;${r};${g};${b}m")
-}
-
-fun main() {
-    val hex = "#D8DA74"
-    val ansi = hexToAnsi(hex)
-    println(ansi["value"])
 }
