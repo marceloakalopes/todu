@@ -16,7 +16,7 @@ fun printFormattedRow(task: Task) {
     val dueDate = when {
         task.dueDate.isBefore(LocalDate.now()) -> "$red${formatDate(task.dueDate)}"
         task.dueDate == LocalDate.now() -> "$blue${formatDate(task.dueDate)}"
-        else -> "$blue" + formatDate(task.dueDate)
+        else -> blue + formatDate(task.dueDate)
     }
     val tags = (task.tags.joinToString(" ") { "+$it" }).lowercase()
     val description = formatMention(task.description.lowercase())
@@ -82,17 +82,25 @@ fun printTasksLater(tasks: List<Task>) {
  */
 fun displayTodo(tasks: List<Task>) {
     // Print overdue tasks
-    printTasksOverdue(tasks)
-
+    if (tasks.any { it.dueDate.isBefore(LocalDate.now()) }) {
+        printTasksOverdue(tasks)
+        println()
+    }
     // Print today tasks
-    println()
-    printTasksToday(tasks)
+    if (tasks.any { it.dueDate == LocalDate.now() }) {
+        printTasksToday(tasks)
+        println()
+    }
 
     // Print tomorrow tasks
-    println()
-    printTasksTomorrow(tasks)
+    if (tasks.any { it.dueDate == LocalDate.now().plusDays(1) }) {
+        printTasksTomorrow(tasks)
+        println()
+    }
 
     // Print later tasks
-    println()
-    printTasksLater(tasks)
+    if (tasks.any { it.dueDate.isAfter(LocalDate.now().plusDays(1) )}) {
+        printTasksLater(tasks)
+        println()
+    }
 }

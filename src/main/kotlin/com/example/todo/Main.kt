@@ -31,38 +31,38 @@ fun main(args: Array<String>) {
                 "new" -> {
                     if (inputUserYesOrNo("Do you want to add a new task?")) {
                         // Get all indexes of tasks and sort them
-                        val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList);
+                        val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList)
 
                         // Get the new task description from the user
-                        val newTaskDescription: String = getDescriptionFromUser();
+                        val newTaskDescription: String = getDescriptionFromUser()
 
                         // Get the new task due date from the user
-                        val newTaskTags: List<String> = getTagsFromUser();
+                        val newTaskTags: List<String> = getTagsFromUser()
 
                         // Get the new task due date from the user
-                        val newTaskDueDate: LocalDate = getDueDateFromUser();
+                        val newTaskDueDate: LocalDate = getDueDateFromUser()
 
                         // Create a new task
                         val newTask =
-                            Task(listOfIndexes.last() + 1, false, newTaskDueDate, newTaskTags, newTaskDescription);
+                            Task(listOfIndexes.last() + 1, false, newTaskDueDate, newTaskTags, newTaskDescription)
 
                         // Rewrite the data
-                        rewriteData(PATH, todoTasksList, newTask);
+                        rewriteData(PATH, todoTasksList, newTask)
                     } else {
                         return
                     }
                 }
 
                 "del" -> {
-                    val taskId: Int = args[1].toInt();
-                    val taskToBeDeleted: Task? = getTaskById(todoTasksList, taskId);
+                    val taskId: Int = args[1].toInt()
+                    val taskToBeDeleted: Task? = getTaskById(todoTasksList, taskId)
                     if (taskToBeDeleted != null) {
                         println()
-                        printFormattedRow(taskToBeDeleted);
+                        printFormattedRow(taskToBeDeleted)
                         println()
                         if (inputUserYesOrNo("Do you want to delete this task?")) {
-                            val newTasksList: List<Task> = deleteTaskFromList(todoTasksList, taskId);
-                            rewriteData(PATH, newTasksList);
+                            val newTasksList: List<Task> = deleteTaskFromList(todoTasksList, taskId)
+                            rewriteData(PATH, newTasksList)
                         } else {
                             return
                         }

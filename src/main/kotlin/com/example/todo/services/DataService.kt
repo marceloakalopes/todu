@@ -137,16 +137,6 @@ fun getDueDateFromUser(): LocalDate {
     }
 }
 
-fun getIdFromUser(): Int {
-    print("Enter the id of the task: ")
-    try {
-        return readLine()!!.toInt()
-    } catch (e: Exception) {
-        println("Invalid id")
-        return getIdFromUser()
-    }
-}
-
 /**
  * Get a task by its id
  * @param [tasks] the list of tasks

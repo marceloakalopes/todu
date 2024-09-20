@@ -1,3 +1,2 @@
-12;true;2024-09-15;ios mobile;@albert asked me to change auth hash algorithm
 9;false;2024-09-20;web sec;@charlie asked me to change auth hash algorithm
 13;false;2024-09-20;db web;talk to @mike about new databases design
