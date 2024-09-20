@@ -56,14 +56,22 @@ fun readData(path: String): List<Task> {
  * @param [currentToDoList] the current list of tasks
  * @param [newTask] the new task to be added
  */
-fun rewriteData(path: String, currentToDoList: List<Task>, newTask: Task) {
+fun rewriteData(path: String, currentToDoList: List<Task>, newTask: Task? = null) {
 
-    val newList: List<Task> = createNewList(currentToDoList, newTask);
+    if (newTask != null) {
+        val newList: List<Task> = createNewList(currentToDoList, newTask);
 
-    File(path).writeText("")
+        File(path).writeText("")
 
-    for (task in newList) {
-        File(path).appendText("${task.id};${task.done};${task.dueDate};${task.tags.joinToString(" ")};${task.description}\n")
+        for (task in newList) {
+            File(path).appendText("${task.id};${task.done};${task.dueDate};${task.tags.joinToString(" ")};${task.description}\n")
+        }
+    } else {
+        File(path).writeText("")
+
+        for (task in currentToDoList) {
+            File(path).appendText("${task.id};${task.done};${task.dueDate};${task.tags.joinToString(" ")};${task.description}\n")
+        }
     }
 }
 

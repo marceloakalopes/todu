@@ -62,12 +62,12 @@ fun main(args: Array<String>) {
                         println()
                         if (inputUserYesOrNo("Do you want to delete this task?")) {
                             val newTasksList: List<Task> = deleteTaskFromList(todoTasksList, taskId);
-                            rewriteData(PATH, newTasksList, taskToBeDeleted);
+                            rewriteData(PATH, newTasksList);
                         } else {
                             return
                         }
                     } else {
-                        println("Task not found")
+                        println("todo: no task with id $taskId")
                     }
                 }
 
