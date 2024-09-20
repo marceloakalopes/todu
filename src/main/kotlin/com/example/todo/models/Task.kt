@@ -14,7 +14,7 @@ import java.time.LocalDate
  * @example Task(1, false, LocalDate.of(2021, 9, 9), listOf("mobile"), "update UI")
  */
 data class Task(
-    val id : Int,
+    val id: Int,
     val done: Boolean,
     val dueDate: LocalDate,
     val tags: List<String>,

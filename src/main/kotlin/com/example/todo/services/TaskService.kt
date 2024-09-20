@@ -1,6 +1,6 @@
 package com.example.todo.services
 
-import com.example.todo.*
+import com.example.todo.utils.*
 import com.example.todo.models.Task
 import com.example.todo.utils.formatDate
 import java.time.LocalDate
@@ -16,10 +16,10 @@ fun printFormattedRow(task: Task) {
     val dueDate = when {
         task.dueDate.isBefore(LocalDate.now()) -> "$red${formatDate(task.dueDate)}"
         task.dueDate == LocalDate.now() -> "$blue${formatDate(task.dueDate)}"
-        else -> "$blue"+ formatDate(task.dueDate)
+        else -> "$blue" + formatDate(task.dueDate)
     }
     val tags = (task.tags.joinToString(" ") { "+$it" }).lowercase()
-    val description = task.description.lowercase()
+    val description = formatMention(task.description.lowercase())
     println("$yellow${id} $white${done}$dueDate $purple${tags} $white${description}")
 }
 
