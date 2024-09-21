@@ -1,8 +1,8 @@
-package com.example.todo.services
+package com.example.todu.services
 
-import com.example.todo.utils.*
-import com.example.todo.models.Task
-import com.example.todo.utils.formatDate
+import com.example.todu.utils.*
+import com.example.todu.models.Task
+import com.example.todu.utils.formatDate
 import java.time.LocalDate
 
 /**
@@ -81,6 +81,8 @@ fun printTasksLater(tasks: List<Task>) {
  * @example displayTodo(listOf(Task(1, false, LocalDate.of(2021, 9, 9), listOf("mobile", "ios"), "update UI")))
  */
 fun displayTodo(tasks: List<Task>) {
+    println()
+
     // Print overdue tasks
     if (tasks.any { it.dueDate.isBefore(LocalDate.now()) }) {
         printTasksOverdue(tasks)
@@ -112,9 +114,9 @@ fun displayTodo(tasks: List<Task>) {
 fun printInstructions() {
     println(
         """
-usage: todo [command] [options]
+usage: todu [command] [options]
         
-These are common todo commands used in various situations:
+These are common todu commands used in various situations:
         
 list tasks
     list      List all tasks

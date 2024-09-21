@@ -1,10 +1,12 @@
-package com.example.todo
+package com.example.todu
 
-import com.example.todo.models.Task
-import com.example.todo.services.*
+import checkForUpdates
+import com.example.todu.models.Task
+import com.example.todu.services.*
+import uninstallApp
 import java.time.LocalDate
 
-private val PATH = System.getProperty("user.home") + "/.todo/tasks.txt"
+private val PATH = System.getProperty("user.home") + "/.todu/tasks.txt"
 
 /** ---------------------------------------- MAIN FUNCTION ---------------------------------------- */
 
@@ -27,10 +29,26 @@ fun main(args: Array<String>) {
                         displayTodo(todoTasksList)
                     } else {
                         when (args[1]) {
-                            "-o" -> printTasksOverdue(todoTasksList)
-                            "-t" -> printTasksToday(todoTasksList)
-                            "-tm" -> printTasksTomorrow(todoTasksList)
-                            "-l" -> printTasksLater(todoTasksList)
+                            "-o" -> {
+                                println()
+                                printTasksOverdue(todoTasksList)
+                                println()
+                            }
+                            "-t" -> {
+                                println()
+                                printTasksToday(todoTasksList)
+                                println()
+                            }
+                            "-tm" -> {
+                                println()
+                                printTasksTomorrow(todoTasksList)
+                                println()
+                            }
+                            "-l" -> {
+                                println()
+                                printTasksLater(todoTasksList)
+                                println()
+                            }
                             else -> println("todo: ${args[0]} '${args[1]}' is not a valid command. See 'todo --help'")
                         }
                     }
@@ -56,7 +74,7 @@ fun main(args: Array<String>) {
                     // Rewrite the data
                     rewriteData(PATH, todoTasksList, newTask)
 
-                    println("todo: new task added")
+                    println("todu: new task added")
                 }
 
                 "del" -> {
@@ -69,11 +87,12 @@ fun main(args: Array<String>) {
                         if (inputUserYesOrNo("Do you want to delete this task?")) {
                             val newTasksList: List<Task> = deleteTaskFromList(todoTasksList, taskId)
                             rewriteData(PATH, newTasksList)
+                            println("todu: task $taskId was deleted")
                         } else {
                             return
                         }
                     } else {
-                        println("todo: no task with id $taskId")
+                        println("todu: no task with id $taskId")
                     }
                 }
 
@@ -85,9 +104,9 @@ fun main(args: Array<String>) {
                         val newList =
                             createNewList(deleteTaskFromList(todoTasksList, taskToBeChecked.id), newTaskChecked)
                         rewriteData(PATH, newList)
-                        println("todo: checked task $taskId")
+                        println("todu: checked task $taskId")
                     } else {
-                        println("todo: no task with id $taskId")
+                        println("todu: no task with id $taskId")
                     }
                 }
 
@@ -99,15 +118,19 @@ fun main(args: Array<String>) {
                         val newList =
                             createNewList(deleteTaskFromList(todoTasksList, taskToBeUnchecked.id), newTaskUnchecked)
                         rewriteData(PATH, newList)
-                        println("todo: task $taskId was unchecked")
+                        println("todu: task $taskId was unchecked")
                     } else {
-                        println("todo: no task with id $taskId")
+                        println("todu: no task with id $taskId")
                     }
                 }
 
+                "--update" -> checkForUpdates()
+
+                "--uninstall" -> uninstallApp()
+
                 "--help" -> printInstructions()
 
-                else -> println("todo: '${args[0]}' is not a valid command. See 'todo --help'")
+                else -> println("todu: '${args[0]}' is not a valid command. See 'todu --help'")
             }
         }
 

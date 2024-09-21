@@ -1,4 +1,4 @@
-package com.example.todo.models
+package com.example.todu.models
 
 import java.time.LocalDate
 

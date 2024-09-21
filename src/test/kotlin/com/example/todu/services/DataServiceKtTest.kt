@@ -1,6 +1,6 @@
-package com.example.todo.services
+package com.example.todu.services
 
-import com.example.todo.models.Task
+import com.example.todu.models.Task
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.time.LocalDate

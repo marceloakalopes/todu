@@ -1,6 +1,6 @@
-package com.example.todo.services
+package com.example.todu.services
 
-import com.example.todo.models.Task
+import com.example.todu.models.Task
 import java.io.File
 import java.time.LocalDate
 
@@ -8,7 +8,7 @@ import java.time.LocalDate
  * Create directory if it does not exist
  */
 fun createTodoDirectoryIfNotExists() {
-    val dir = File(System.getProperty("user.home") + "/.todo")
+    val dir = File(System.getProperty("user.home") + "/.todu")
     if (!dir.exists()) {
         dir.mkdirs()
     }
@@ -18,7 +18,7 @@ fun createTodoDirectoryIfNotExists() {
  * Create tasks file if it does not exist
  */
 fun createTasksFileIfNotExists() {
-    val file = File(System.getProperty("user.home") + "/.todo/tasks.txt")
+    val file = File(System.getProperty("user.home") + "/.todu/tasks.txt")
     if (!file.exists()) {
         file.createNewFile()
     }
@@ -115,7 +115,7 @@ fun inputUserYesOrNo(initialMessage: String): Boolean {
         when (input) {
             "y" -> return true
             "n" -> return false
-            else -> println("todo: '$input' is not a valid input. Use 'y' for yes or 'n' for no.")
+            else -> println("todu: '$input' is not a valid input. Use 'y' for yes or 'n' for no.")
         }
     }
 }
