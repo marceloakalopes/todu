@@ -1,5 +1,0 @@
-9;false;2024-09-20;web sec;@charlie asked me to change auth hash algorithm
-13;false;2024-09-20;db web;talk to @mike about new databases design
-2;true;2024-09-30;ios mobile;@chris asked me to change app icon
-14;false;2024-09-15;db web;@dylan asked me to change db schema
-15;false;2024-09-22;web ui;sleep @alone

@@ -65,7 +65,8 @@ fun performUpdate(latestVersion: String) {
     val targetFile = File("/usr/local/bin/todu")
 
     try {
-        val url = URL(downloadUrl)
+        val uri = URI(downloadUrl)
+        val url = uri.toURL()
         url.openStream().use { input ->
             targetFile.outputStream().use { output ->
                 input.copyTo(output)
