@@ -4,7 +4,7 @@ import com.example.todo.models.Task
 import com.example.todo.services.*
 import java.time.LocalDate
 
-const val PATH = "/Users/marcelolopes/IdeaProjects/CSD215-Lab-1/tasks.txt"
+const val PATH = "tasks.txt"
 
 /** ---------------------------------------- MAIN FUNCTION ---------------------------------------- */
 

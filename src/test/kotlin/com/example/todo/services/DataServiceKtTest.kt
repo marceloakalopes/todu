@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-const val PATH = "/Users/marcelolopes/IdeaProjects/CSD215-Lab-1/test.txt"
+const val PATH = "test.txt"
 
 class DataServiceKtTest {
 
