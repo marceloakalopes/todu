@@ -5,16 +5,33 @@ import java.io.File
 import java.time.LocalDate
 
 /**
+ * Create directory if it does not exist
+ */
+fun createTodoDirectoryIfNotExists() {
+    val dir = File(System.getProperty("user.home") + "/.todo")
+    if (!dir.exists()) {
+        dir.mkdirs()
+    }
+}
+
+/**
+ * Create tasks file if it does not exist
+ */
+fun createTasksFileIfNotExists() {
+    val file = File(System.getProperty("user.home") + "/.todo/tasks.txt")
+    if (!file.exists()) {
+        file.createNewFile()
+    }
+}
+
+/**
  * Create a new list with a new task
  * @param [currentList] the current list of tasks
  * @param [newTask] the new task to be added
  * @return a new list with the new task
  */
 fun createNewList(currentList: List<Task>, newTask: Task): List<Task> {
-    val tasks = mutableListOf<Task>()
-    tasks.addAll(currentList)
-    tasks.add(newTask)
-    return tasks
+    return currentList + newTask
 }
 
 /**
@@ -24,10 +41,7 @@ fun createNewList(currentList: List<Task>, newTask: Task): List<Task> {
  * @return a new list without the task to be deleted
  */
 fun deleteTaskFromList(currentList: List<Task>, taskToBeDeleted: Int): List<Task> {
-    val tasks = mutableListOf<Task>()
-    tasks.addAll(currentList)
-    tasks.removeIf { it.id == taskToBeDeleted }
-    return tasks
+    return currentList.filter { it.id != taskToBeDeleted } // Avoid mutability
 }
 
 /**
@@ -57,17 +71,17 @@ fun uncheckTask(taskToBeUnchecked: Task) : Task {
  */
 fun readData(path: String): List<Task> {
     val tasks = mutableListOf<Task>()
-
-    File(path).forEachLine() {
-        if (it.isNotEmpty()) {
-            val parts = it.split(";")
-            val id = parts[0].toInt()
-            val done = parts[1].toBoolean()
-            val dueDate =
-                LocalDate.of(parts[2].split("-")[0].toInt(), parts[2].split("-")[1].toInt(), parts[2].split("-")[2].toInt())
-            val tags = parts[3].split(" ")
-            val description = parts[4].trim()
-            tasks.add(Task(id, done, dueDate, tags, description))
+    File(path).bufferedReader().useLines { lines ->
+        lines.forEach { line ->
+            if (line.isNotEmpty()) {
+                val parts = line.split(";")
+                val id = parts[0].toInt()
+                val done = parts[1].toBoolean()
+                val dueDate = LocalDate.parse(parts[2]) // More efficient date parsing
+                val tags = parts[3].split(" ")
+                val description = parts[4].trim()
+                tasks.add(Task(id, done, dueDate, tags, description))
+            }
         }
     }
     return tasks
@@ -80,20 +94,10 @@ fun readData(path: String): List<Task> {
  * @param [newTask] the new task to be added
  */
 fun rewriteData(path: String, currentToDoList: List<Task>, newTask: Task? = null) {
-
-    if (newTask != null) {
-        val newList: List<Task> = createNewList(currentToDoList, newTask);
-
-        File(path).writeText("")
-
+    File(path).bufferedWriter().use { writer ->
+        val newList = newTask?.let { createNewList(currentToDoList, it) } ?: currentToDoList
         for (task in newList) {
-            File(path).appendText("${task.id};${task.done};${task.dueDate};${task.tags.joinToString(" ")};${task.description}\n")
-        }
-    } else {
-        File(path).writeText("")
-
-        for (task in currentToDoList) {
-            File(path).appendText("${task.id};${task.done};${task.dueDate};${task.tags.joinToString(" ")};${task.description}\n")
+            writer.write("${task.id};${task.done};${task.dueDate};${task.tags.joinToString(" ")};${task.description}\n")
         }
     }
 }
@@ -105,20 +109,20 @@ fun rewriteData(path: String, currentToDoList: List<Task>, newTask: Task? = null
  * @example inputUserYesOrNo("Do you want to add a new task?") -> 'y' -> true
  */
 fun inputUserYesOrNo(initialMessage: String): Boolean {
-    print("$initialMessage (y/n): ")
-    val input = readLine()!!.trim().lowercase()
-    return when (input) {
-        "y" -> true
-        "n" -> false
-        else -> {
-            inputUserYesOrNo("todo: '${input}' a valid input. Use 'y' for yes or 'n' for no:")
+    while (true) {
+        print("$initialMessage (y/n): ")
+        val input = readLine()!!.trim().lowercase()
+        when (input) {
+            "y" -> return true
+            "n" -> return false
+            else -> println("todo: '$input' is not a valid input. Use 'y' for yes or 'n' for no.")
         }
     }
 }
 
 /**
  * Get the description of a task from the user
- * @return the description of the task
+ * @return the description of the task-
  */
 fun getDescriptionFromUser(): String {
     print("Enter the description of the task: ")

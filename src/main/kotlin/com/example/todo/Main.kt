@@ -4,7 +4,7 @@ import com.example.todo.models.Task
 import com.example.todo.services.*
 import java.time.LocalDate
 
-const val PATH = "tasks.txt"
+private val PATH = System.getProperty("user.home") + "/.todo/tasks.txt"
 
 /** ---------------------------------------- MAIN FUNCTION ---------------------------------------- */
 
@@ -14,6 +14,11 @@ fun main(args: Array<String>) {
         args.isEmpty() -> printInstructions()
 
         args.isNotEmpty() -> {
+
+            // Create the directory and the file if they do not exist
+            createTodoDirectoryIfNotExists()
+            createTasksFileIfNotExists()
+
             val todoTasksList: List<Task> = readData(PATH)
 
             when (args[0]) {
@@ -107,22 +112,4 @@ fun main(args: Array<String>) {
         }
 
     }
-
-
-    /** ---------------------------------------- Hard Coded Examples ---------------------------------------- */
-
-//    println("${green}Overdue")
-//    println("${yellow}6" + "      " + "${white}[ ]" + "      " + "${red}Tue Sep 09" + "      " + "${purple}+mobile" + " ${white}update UI")
-//    println("${yellow}2" + "      " + "${white}[x]" + "      " + "${red}Wed Sep 11" + "      " + "${purple}+college" + " ${white}lab #2 ")
-//    println("${yellow}7" + "      " + "${white}[ ]" + "      " + "${red}Sat Sep 14" + "      " + "${purple}+web" + " ${white}authentication system for produs.io")
-//
-//
-//    println("\n${green}Today")
-//    println("${yellow}10" + "     " + "${white}[ ]" + "      " + "${blue}today" + "           " + "${purple}+web +ui" + " ${white}create a button component for the new design")
-//    println("${yellow}9" + "      " + "${white}[ ]" + "      " + "${blue}today" + "           " + "${purple}+security" + " ${white}create a new password policy")
-//    println("${yellow}3" + "      " + "${white}[x]" + "      " + "${blue}today" + "           " + "${purple}+meeting" + " ${white}ask ${red}@mike ${white}about the new project")
-//
-//    println("\n${green}Tomorrow")
-//    println("${yellow}1" + "      " + "${white}[x]" + "      " + "${blue}tomorrow" + "        " + "${purple}+web" + " ${white}create a new landing page with ${red}@bob")
-//    println("${yellow}4" + "      " + "${white}[ ]" + "      " + "${blue}tomorrow" + "        " + "${purple}+ios +ui" + " ${white}update the app icon")
 }
