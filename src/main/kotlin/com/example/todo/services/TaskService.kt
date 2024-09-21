@@ -99,8 +99,38 @@ fun displayTodo(tasks: List<Task>) {
     }
 
     // Print later tasks
-    if (tasks.any { it.dueDate.isAfter(LocalDate.now().plusDays(1) )}) {
+    if (tasks.any { it.dueDate.isAfter(LocalDate.now().plusDays(1)) }) {
         printTasksLater(tasks)
         println()
     }
+}
+
+/**
+ * Get the description of a task from the user
+ * @return the description of the task
+ */
+fun printInstructions() {
+    println(
+        """
+usage: todo [command] [options]
+        
+These are common todo commands used in various situations:
+        
+list tasks
+    list      List all tasks
+    list -o   List overdue tasks
+    list -t   List tasks for today
+    list -tm  List tasks for tomorrow
+    list -l   List tasks for later
+
+add new task
+    new       Add a new task
+
+mark or modify tasks
+    del       Delete a task by its ID
+    check     Mark a task as completed by its ID
+    uncheck   Unmark a completed task by its ID
+
+        """
+    )
 }

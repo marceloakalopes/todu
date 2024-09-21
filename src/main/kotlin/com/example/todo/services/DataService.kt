@@ -31,21 +31,44 @@ fun deleteTaskFromList(currentList: List<Task>, taskToBeDeleted: Int): List<Task
 }
 
 /**
+ * Check tasks that are not done
+ * @param [taskToBeChecked] task to be checked
+ * @return a new Task with done parameter true
+ */
+fun checkTask(taskToBeChecked: Task) : Task {
+    val checkedTasked: Task = taskToBeChecked.copy(done = true)
+    return checkedTasked;
+}
+
+/**
+ * Uncheck tasks that are done
+ * @param [taskToBeUnchecked] task to be unchecked
+ * @return a new Task with done parameter false
+ */
+fun uncheckTask(taskToBeUnchecked: Task) : Task {
+    val uncheckedTasked: Task = taskToBeUnchecked.copy(done = false)
+    return uncheckedTasked;
+}
+
+/**
  * Read data from a file and return a list of tasks
  * @param [path] the path to the file
  * @return a list of tasks
  */
 fun readData(path: String): List<Task> {
     val tasks = mutableListOf<Task>()
-    File(path).forEachLine {
-        val parts = it.split(";")
-        val id = parts[0].toInt()
-        val done = parts[1].toBoolean()
-        val dueDate =
-            LocalDate.of(parts[2].split("-")[0].toInt(), parts[2].split("-")[1].toInt(), parts[2].split("-")[2].toInt())
-        val tags = parts[3].split(" ")
-        val description = parts[4].trim()
-        tasks.add(Task(id, done, dueDate, tags, description))
+
+    File(path).forEachLine() {
+        if (it.isNotEmpty()) {
+            val parts = it.split(";")
+            val id = parts[0].toInt()
+            val done = parts[1].toBoolean()
+            val dueDate =
+                LocalDate.of(parts[2].split("-")[0].toInt(), parts[2].split("-")[1].toInt(), parts[2].split("-")[2].toInt())
+            val tags = parts[3].split(" ")
+            val description = parts[4].trim()
+            tasks.add(Task(id, done, dueDate, tags, description))
+        }
     }
     return tasks
 }
@@ -114,7 +137,7 @@ fun getDescriptionFromUser(): String {
 fun getTagsFromUser(): List<String> {
     print("Enter the tags of the task: ")
     try {
-        return readLine()!!.split(" ")
+        return readLine()!!.trim().split(" ")
     } catch (e: Exception) {
         println("Invalid tags")
         return getTagsFromUser()

@@ -11,46 +11,47 @@ const val PATH = "/Users/marcelolopes/IdeaProjects/CSD215-Lab-1/tasks.txt"
 fun main(args: Array<String>) {
 
     when {
-        args.isEmpty() -> println("Usage: todo [list] [add] [done] [remove] [help]")
+        args.isEmpty() -> printInstructions()
 
         args.isNotEmpty() -> {
             val todoTasksList: List<Task> = readData(PATH)
 
             when (args[0]) {
                 "list" -> {
-                    when (args[1]) {
-                        "-a" -> displayTodo(todoTasksList)
-                        "-o" -> printTasksOverdue(todoTasksList)
-                        "-t" -> printTasksToday(todoTasksList)
-                        "-tm" -> printTasksTomorrow(todoTasksList)
-                        "-l" -> printTasksLater(todoTasksList)
-                        else -> println("todo: ${args[0]} '${args[1]}' is not a valid command. See 'todo --help'")
+                    if (args.size == 1) {
+                        displayTodo(todoTasksList)
+                    } else {
+                        when (args[1]) {
+                            "-o" -> printTasksOverdue(todoTasksList)
+                            "-t" -> printTasksToday(todoTasksList)
+                            "-tm" -> printTasksTomorrow(todoTasksList)
+                            "-l" -> printTasksLater(todoTasksList)
+                            else -> println("todo: ${args[0]} '${args[1]}' is not a valid command. See 'todo --help'")
+                        }
                     }
                 }
 
                 "new" -> {
-                    if (inputUserYesOrNo("Do you want to add a new task?")) {
-                        // Get all indexes of tasks and sort them
-                        val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList)
+                    // Get all indexes of tasks and sort them
+                    val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList)
 
-                        // Get the new task description from the user
-                        val newTaskDescription: String = getDescriptionFromUser()
+                    // Get the new task description from the user
+                    val newTaskDescription: String = getDescriptionFromUser()
 
-                        // Get the new task due date from the user
-                        val newTaskTags: List<String> = getTagsFromUser()
+                    // Get the new task due date from the user
+                    val newTaskTags: List<String> = getTagsFromUser()
 
-                        // Get the new task due date from the user
-                        val newTaskDueDate: LocalDate = getDueDateFromUser()
+                    // Get the new task due date from the user
+                    val newTaskDueDate: LocalDate = getDueDateFromUser()
 
-                        // Create a new task
-                        val newTask =
-                            Task(listOfIndexes.last() + 1, false, newTaskDueDate, newTaskTags, newTaskDescription)
+                    // Create a new task
+                    val newTask =
+                        Task(listOfIndexes.last() + 1, false, newTaskDueDate, newTaskTags, newTaskDescription)
 
-                        // Rewrite the data
-                        rewriteData(PATH, todoTasksList, newTask)
-                    } else {
-                        return
-                    }
+                    // Rewrite the data
+                    rewriteData(PATH, todoTasksList, newTask)
+
+                    println("todo: new task added")
                 }
 
                 "del" -> {
@@ -72,8 +73,34 @@ fun main(args: Array<String>) {
                 }
 
                 "check" -> {
-
+                    val taskId: Int = args[1].toInt()
+                    val taskToBeChecked: Task? = getTaskById(todoTasksList, taskId)
+                    if (taskToBeChecked != null) {
+                        val newTaskChecked: Task = checkTask(taskToBeChecked)
+                        val newList =
+                            createNewList(deleteTaskFromList(todoTasksList, taskToBeChecked.id), newTaskChecked)
+                        rewriteData(PATH, newList)
+                        println("todo: checked task $taskId")
+                    } else {
+                        println("todo: no task with id $taskId")
+                    }
                 }
+
+                "uncheck" -> {
+                    val taskId: Int = args[1].toInt()
+                    val taskToBeUnchecked: Task? = getTaskById(todoTasksList, taskId)
+                    if (taskToBeUnchecked != null) {
+                        val newTaskUnchecked: Task = uncheckTask(taskToBeUnchecked)
+                        val newList =
+                            createNewList(deleteTaskFromList(todoTasksList, taskToBeUnchecked.id), newTaskUnchecked)
+                        rewriteData(PATH, newList)
+                        println("todo: task $taskId was unchecked")
+                    } else {
+                        println("todo: no task with id $taskId")
+                    }
+                }
+
+                "--help" -> printInstructions()
 
                 else -> println("todo: '${args[0]}' is not a valid command. See 'todo --help'")
             }
