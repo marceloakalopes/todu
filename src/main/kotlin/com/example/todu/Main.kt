@@ -3,7 +3,6 @@ package com.example.todu
 import checkForUpdates
 import com.example.todu.models.Task
 import com.example.todu.services.*
-import uninstallApp
 import java.time.LocalDate
 
 private val PATH = System.getProperty("user.home") + "/.todu/tasks.txt"
@@ -152,10 +151,6 @@ fun main(args: Array<String>) {
                 }
 
                 "--update" -> checkForUpdates()
-
-                "--uninstall" -> uninstallApp()
-
-                "--help" -> printInstructions()
 
                 else -> println("todu: '${args[0]}' is not a valid command. See 'todu --help'")
             }
