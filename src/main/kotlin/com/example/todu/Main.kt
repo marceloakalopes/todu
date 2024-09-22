@@ -34,21 +34,25 @@ fun main(args: Array<String>) {
                                 printTasksOverdue(todoTasksList)
                                 println()
                             }
+
                             "-t" -> {
                                 println()
                                 printTasksToday(todoTasksList)
                                 println()
                             }
+
                             "-tm" -> {
                                 println()
                                 printTasksTomorrow(todoTasksList)
                                 println()
                             }
+
                             "-l" -> {
                                 println()
                                 printTasksLater(todoTasksList)
                                 println()
                             }
+
                             else -> println("todo: ${args[0]} '${args[1]}' is not a valid command. See 'todo --help'")
                         }
                     }
@@ -78,22 +82,45 @@ fun main(args: Array<String>) {
                 }
 
                 "del" -> {
-                    val taskId: Int = args[1].toInt()
-                    val taskToBeDeleted: Task? = getTaskById(todoTasksList, taskId)
-                    if (taskToBeDeleted != null) {
-                        println()
-                        printFormattedRow(taskToBeDeleted)
-                        println()
-                        if (inputUserYesOrNo("Do you want to delete this task?")) {
-                            val newTasksList: List<Task> = deleteTaskFromList(todoTasksList, taskId)
-                            rewriteData(PATH, newTasksList)
-                            println("todu: task $taskId was deleted")
+
+                    when (args.size) {
+                        1 -> println("todu: missing task id")
+                        2 -> if (args[1] == "--checked-all") {
+                            if (inputUserYesOrNo("Do you want to delete all checked tasks?")) {
+                                val newTasksList: List<Task> = deleteAllCheckedTasks(todoTasksList)
+                                rewriteData(PATH, newTasksList)
+                                println("todu: all checked tasks were deleted")
+                            } else {
+                                return
+                            }
+
                         } else {
-                            return
+                            val taskId: Int = args[1].toInt()
+                            val taskToBeDeleted: Task? = getTaskById(todoTasksList, taskId)
+                            if (taskToBeDeleted != null) {
+                                println()
+                                printFormattedRow(taskToBeDeleted)
+                                println()
+                                if (inputUserYesOrNo("Do you want to delete this task?")) {
+                                    val newTasksList: List<Task> = deleteTaskFromList(todoTasksList, taskId)
+                                    rewriteData(PATH, newTasksList)
+                                    println("todu: task $taskId was deleted")
+                                } else {
+                                    return
+                                }
+                            } else {
+                                println("todu: no task with id $taskId")
+                            }
+
                         }
-                    } else {
-                        println("todu: no task with id $taskId")
+
+                        3 -> {
+                            println("todu: too many arguments")
+                        }
+
                     }
+
+
                 }
 
                 "check" -> {

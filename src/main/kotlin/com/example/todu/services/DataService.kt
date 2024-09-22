@@ -192,3 +192,12 @@ fun getAllIndexesOfTasksAndSort(taskList: List<Task>): List<Int> {
     indexes.sort()
     return indexes
 }
+
+/**
+ * Delete all checked tasks
+ * @param [taskList] the list of tasks
+ * @return a new list without the checked tasks
+ */
+fun deleteAllCheckedTasks(taskList: List<Task>): List<Task> {
+    return taskList.filter { !it.done }
+}
