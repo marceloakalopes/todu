@@ -19,7 +19,7 @@
 
 ## **Installation**
 
-### **1. Install with Homebrew (macOS/Linux)**
+### **1. Install with Homebrew (macOS)**
 
 The easiest way to install `todu` is through Homebrew, a package manager for macOS and Linux.
 
@@ -43,7 +43,7 @@ The easiest way to install `todu` is through Homebrew, a package manager for mac
    todu --help
    ```
 
-### **2. Manual Installation (macOS/Linux)**
+### **2. Manual Installation (macOS)**
 
 If you prefer to manually download and install the binary, follow these steps:
 
