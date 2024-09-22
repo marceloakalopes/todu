@@ -133,6 +133,8 @@ mark or modify tasks
     check     Mark a task as completed by its ID
     uncheck   Unmark a completed task by its ID
 
+check for updates
+    --update  Check for updates on GitHub
         """
     )
 }

@@ -31,7 +31,7 @@ fun checkForUpdates(): Boolean {
 
             if (latestVersion != currentVersion) {
                 println("A new version of todu ($latestVersion) is available.")
-                println("To update, please visit: https://github.com/marceloakalopes/todu/releases/latest")
+                println("Use 'brew upgrade todu' to update.")
                 return true
             } else {
                 println("todu is up-to-date.")
