@@ -50,7 +50,7 @@ If you prefer to manually download and install the binary on macOS, follow these
 
 1. **Download the Latest Release**
 
-   Go to the [Releases](https://github.com/marceleakalopes/todu/releases) page of this repository and download the `.tar.gz` file for macOS. Example: `todu-1.0.0-macos.tar.gz`.
+   Go to the [Releases](https://github.com/marceloakalopes/todu/releases) page of this repository and download the `.tar.gz` file for macOS. Example: `todu-1.0.0-macos.tar.gz`.
 
 2. **Extract the Tarball:**
 
@@ -83,7 +83,7 @@ Linux users can install Todu manually with the following steps:
 
 1. **Download the Native Image for Linux**
 
-   Go to the [Releases](https://github.com/marceleakalopes/todu/releases) page of this repository and download the `.tar.gz` file for Linux. Example: `todu-1.0.0-linux.tar.gz`.
+   Go to the [Releases](https://github.com/marceloakalopes/todu/releases) page of this repository and download the `.tar.gz` file for Linux. Example: `todu-1.0.0-linux.tar.gz`.
 
 2. **Extract the Tarball:**
 
