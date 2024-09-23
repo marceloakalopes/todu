@@ -1,3 +1,7 @@
+Here’s the updated README with corrected installation instructions for macOS (via Homebrew or manually) and manual installation for Linux:
+
+---
+
 # **Todu CLI**
 
 `todu` is a minimalist, terminal-based to-do list application written in Kotlin. It's designed to help you manage your tasks efficiently from the command line.
@@ -12,6 +16,7 @@
 - Add new tasks with tags and due dates.
 - List tasks by status (overdue, today, tomorrow, later).
 - Mark tasks as done or undone.
+- Delete all completed tasks with a single command.
 - Automatically saves tasks to your `~/.todu/tasks.txt` file.
 - Lightweight and fast, ideal for productivity enthusiasts who prefer CLI tools.
 
@@ -21,7 +26,7 @@
 
 ### **1. Install with Homebrew (macOS)**
 
-The easiest way to install `todu` is through Homebrew, a package manager for macOS and Linux.
+Homebrew is the easiest way to install `todu` on macOS.
 
 1. **Tap the Todu formula:**
 
@@ -45,18 +50,18 @@ The easiest way to install `todu` is through Homebrew, a package manager for mac
 
 ### **2. Manual Installation (macOS)**
 
-If you prefer to manually download and install the binary, follow these steps:
+If you prefer to manually download and install the binary on macOS, follow these steps:
 
 1. **Download the Latest Release**
 
-   Go to the [Releases](https://github.com/marceloakalopes/todu/releases) page of this repository and download the `.tar.gz` file for the latest version. Example: `todu-0.1.0.tar.gz`.
+   Go to the [Releases](https://github.com/marceleakalopes/todu/releases) page of this repository and download the `.tar.gz` file for macOS. Example: `todu-1.0.0-macos.tar.gz`.
 
 2. **Extract the Tarball:**
 
    After downloading, extract the file:
 
    ```bash
-   tar -xvzf todu-0.1.0.tar.gz
+   tar -xvzf todu-1.0.0-macos.tar.gz
    ```
 
 3. **Move the `todu` Binary to `/usr/local/bin`:**
@@ -69,6 +74,47 @@ If you prefer to manually download and install the binary, follow these steps:
    ```
 
 4. **Verify Installation:**
+
+   You can verify that the installation was successful by running:
+
+   ```bash
+   todu --help
+   ```
+
+### **3. Manual Installation (Linux)**
+
+Linux users can install Todu manually with the following steps:
+
+1. **Download the Native Image for Linux**
+
+   Go to the [Releases](https://github.com/marceleakalopes/todu/releases) page of this repository and download the `.tar.gz` file for Linux. Example: `todu-1.0.0-linux.tar.gz`.
+
+2. **Extract the Tarball:**
+
+   After downloading, extract the file:
+
+   ```bash
+   tar -xvzf todu-1.0.0-linux.tar.gz
+   ```
+
+3. **Run Todu from the extracted folder:**
+
+   Navigate to the extracted directory and run Todu:
+
+   ```bash
+   ./todu
+   ```
+
+4. **Optional - Move Todu to a Directory in Your PATH:**
+
+   To make `todu` globally accessible, move it to `/usr/local/bin`:
+
+   ```bash
+   sudo mv todu /usr/local/bin/todu
+   sudo chmod +x /usr/local/bin/todu
+   ```
+
+5. **Verify Installation:**
 
    You can verify that the installation was successful by running:
 
@@ -105,6 +151,11 @@ Once installed, you can start using `todu` to manage your tasks from the termina
   todu del <task-id>
   ```
 
+- **Delete all completed tasks:**
+  ```bash
+  todu del --checked-all
+  ```
+
 - **Mark a task as done:**
   ```bash
   todu check <task-id>
@@ -130,19 +181,18 @@ To check for new versions and update the app:
 todu --update
 ```
 
-This will check for the latest version on GitHub. If a new version is available, it will prompt you to update.
+This will check for the latest version on GitHub. The bug related to GitHub API connectivity has been fixed in this release, ensuring smooth updates.
 
 ---
 
 ## **Uninstalling Todu**
 
-If you want to uninstall `todu`, you can do so easily:
+The `todu --uninstall` command has been removed. You can now uninstall Todu via the package manager you used for installation. For example:
 
-```bash
-todu --uninstall
-```
-
-This will remove the `todu` binary and all associated data from your system.
+- **Homebrew** (macOS):
+  ```bash
+  brew uninstall todu
+  ```
 
 ---
 
@@ -161,5 +211,3 @@ Contributions are welcome! Feel free to open issues or submit pull requests to h
 ## **License**
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
