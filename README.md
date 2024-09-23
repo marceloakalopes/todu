@@ -1,7 +1,3 @@
-Here’s the updated README with corrected installation instructions for macOS (via Homebrew or manually) and manual installation for Linux:
-
----
-
 # **Todu CLI**
 
 `todu` is a minimalist, terminal-based to-do list application written in Kotlin. It's designed to help you manage your tasks efficiently from the command line.
