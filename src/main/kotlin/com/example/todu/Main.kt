@@ -72,16 +72,30 @@ private fun handleListCommand(args: Array<String>, todoTasksList: List<Task>) {
  * @param [todoTasksList] the list of tasks
  */
 private fun handleNewTaskCommand(todoTasksList: List<Task>) {
+    // Get all indexes of tasks and sort them
     val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList)
+
+    // If the list is empty, start with ID 1
+    val newTaskId = if (listOfIndexes.isEmpty()) 1 else listOfIndexes.last() + 1
+
+    // Get the new task description from the user
     val newTaskDescription: String = getDescriptionFromUser()
+
+    // Get the new task tags from the user
     val newTaskTags: List<String> = getTagsFromUser()
+
+    // Get the new task due date from the user
     val newTaskDueDate: LocalDate = getDueDateFromUser()
 
-    val newTask = Task(listOfIndexes.last() + 1, false, newTaskDueDate, newTaskTags, newTaskDescription)
+    // Create a new task
+    val newTask = Task(newTaskId, false, newTaskDueDate, newTaskTags, newTaskDescription)
+
+    // Rewrite the data
     rewriteData(PATH, todoTasksList, newTask)
 
     println("todu: new task added")
 }
+
 
 /**
  * This function handles the 'del' command
