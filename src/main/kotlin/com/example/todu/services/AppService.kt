@@ -1,3 +1,5 @@
+package com.example.todu.services
+
 import java.net.HttpURLConnection
 import java.net.URI
 import java.io.BufferedReader
@@ -9,7 +11,7 @@ import java.io.InputStreamReader
  * @return true if a new version is available, false otherwise
  */
 fun checkForUpdates(): Boolean {
-    val currentVersion = "v0.1.0"  // Your current todu version
+    val currentVersion = "v1.0.0"  // Your current todu version
     val uri = URI("https://api.github.com/repos/marceloakalopes/todu/releases/latest")
 
     try {

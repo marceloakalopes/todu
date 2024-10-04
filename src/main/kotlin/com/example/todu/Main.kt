@@ -1,6 +1,6 @@
 package com.example.todu
 
-import checkForUpdates
+import com.example.todu.services.checkForUpdates
 import com.example.todu.models.Task
 import com.example.todu.services.*
 import java.time.LocalDate
@@ -103,9 +103,9 @@ private fun handleNewTaskCommand(todoTasksList: List<Task>) {
  * @param [todoTasksList] the list of tasks
  */
 private fun handleDeleteTaskCommand(args: Array<String>, todoTasksList: List<Task>) {
-    when {
-        args.size == 1 -> println("todu: missing task ID or option")
-        args.size == 2 -> {
+    when (args.size) {
+        1 -> println("todu: missing task ID or option")
+        2 -> {
             if (args[1] == "--checked-all") {
                 if (inputUserYesOrNo("Do you want to delete all checked tasks?")) {
                     val newTasksList = deleteAllCheckedTasks(todoTasksList)

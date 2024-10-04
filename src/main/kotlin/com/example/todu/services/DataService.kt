@@ -51,7 +51,7 @@ fun deleteTaskFromList(currentList: List<Task>, taskToBeDeleted: Int): List<Task
  */
 fun checkTask(taskToBeChecked: Task) : Task {
     val checkedTasked: Task = taskToBeChecked.copy(done = true)
-    return checkedTasked;
+    return checkedTasked
 }
 
 /**
@@ -61,7 +61,7 @@ fun checkTask(taskToBeChecked: Task) : Task {
  */
 fun uncheckTask(taskToBeUnchecked: Task) : Task {
     val uncheckedTasked: Task = taskToBeUnchecked.copy(done = false)
-    return uncheckedTasked;
+    return uncheckedTasked
 }
 
 /**
@@ -111,8 +111,7 @@ fun rewriteData(path: String, currentToDoList: List<Task>, newTask: Task? = null
 fun inputUserYesOrNo(initialMessage: String): Boolean {
     while (true) {
         print("$initialMessage (y/n): ")
-        val input = readLine()!!.trim().lowercase()
-        when (input) {
+        when (val input = readln().trim().lowercase()) {
             "y" -> return true
             "n" -> return false
             else -> println("todu: '$input' is not a valid input. Use 'y' for yes or 'n' for no.")
@@ -127,7 +126,7 @@ fun inputUserYesOrNo(initialMessage: String): Boolean {
 fun getDescriptionFromUser(): String {
     print("Enter the description of the task: ")
     try {
-        return readLine()!!.trim()
+        return readln().trim()
     } catch (e: Exception) {
         println("Invalid description")
         return getDescriptionFromUser()
@@ -141,7 +140,7 @@ fun getDescriptionFromUser(): String {
 fun getTagsFromUser(): List<String> {
     print("Enter the tags of the task: ")
     try {
-        return readLine()!!.trim().split(" ")
+        return readln().trim().split(" ")
     } catch (e: Exception) {
         println("Invalid tags")
         return getTagsFromUser()
@@ -156,7 +155,7 @@ fun getTagsFromUser(): List<String> {
 fun getDueDateFromUser(): LocalDate {
     print("Enter the due date of the task (yyyy mm dd): ")
     try {
-        val date = readLine()!!.trim()
+        val date = readln().trim()
         return LocalDate.of(date.split(" ")[0].toInt(), date.split(" ")[1].toInt(), date.split(" ")[2].toInt())
     } catch (e: Exception) {
         println("Invalid date")

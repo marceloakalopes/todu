@@ -19,4 +19,4 @@ data class Task(
     val dueDate: LocalDate,
     val tags: List<String>,
     val description: String
-);
+)
