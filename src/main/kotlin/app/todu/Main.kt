@@ -1,8 +1,7 @@
-package com.example.todu
+package app.todu
 
-import com.example.todu.services.checkForUpdates
-import com.example.todu.models.Task
-import com.example.todu.services.*
+import app.todu.models.Task
+import app.todu.services.*
 import java.time.LocalDate
 
 private val PATH = System.getProperty("user.home") + "/.todu/tasks.txt"
@@ -72,11 +71,9 @@ private fun handleListCommand(args: Array<String>, todoTasksList: List<Task>) {
  * @param [todoTasksList] the list of tasks
  */
 private fun handleNewTaskCommand(todoTasksList: List<Task>) {
-    // Get all indexes of tasks and sort them
-    val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList) // Maybe this function is doing too much. It could be split into two functions: one to get all indexes and another to sort them.
 
-    // If the list is empty, start with ID 1
-    val newTaskId = if (listOfIndexes.isEmpty()) 1 else listOfIndexes.last() + 1
+    // Get the new task ID
+    val newTaskId = (todoTasksList.maxOfOrNull { it.id } ?: 0) + 1
 
     // Get the new task description from the user
     val newTaskDescription: String = getDescriptionFromUser()

@@ -1,4 +1,4 @@
-package com.example.todu.services
+package app.todu.services
 
 import java.net.HttpURLConnection
 import java.net.URI

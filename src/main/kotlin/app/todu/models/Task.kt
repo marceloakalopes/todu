@@ -1,4 +1,4 @@
-package com.example.todu.models
+package app.todu.models
 
 import java.time.LocalDate
 
@@ -19,4 +19,9 @@ data class Task(
     val dueDate: LocalDate,
     val tags: List<String>,
     val description: String
-)
+) {
+    init {
+        require(description.isNotBlank()) { "Description cannot be blank" }
+        require(dueDate >= LocalDate.now()) { "Due date cannot be in the past" }
+    }
+}

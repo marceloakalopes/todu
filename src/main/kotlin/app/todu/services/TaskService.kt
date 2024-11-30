@@ -1,8 +1,7 @@
-package com.example.todu.services
+package app.todu.services
 
-import com.example.todu.utils.*
-import com.example.todu.models.Task
-import com.example.todu.utils.formatDate
+import app.todu.models.Task
+import app.todu.utils.*
 import java.time.LocalDate
 
 /**
@@ -29,11 +28,8 @@ fun printFormattedRow(task: Task) {
  */
 fun printTasksOverdue(tasks: List<Task>) {
     println("${green}Overdue")
-    for (task in tasks) {
-        if (task.dueDate.isBefore(LocalDate.now())) {
-            printFormattedRow(task)
-        }
-    }
+    tasks.filter { it.dueDate.isBefore(LocalDate.now()) }
+        .forEach { printFormattedRow(it) }
 }
 
 /**

@@ -1,4 +1,4 @@
-package com.example.todu.utils
+package app.todu.utils
 
 import java.time.LocalDate
 
@@ -15,11 +15,11 @@ fun formatMention(mention: String): String {
         val parts = mention.split(" ")
         val mentionIndex = parts.indexOfFirst { it.startsWith("@") }
         return when (mentionIndex) {
-            0 -> "${red}${parts[mentionIndex]}${white} ${parts.subList(1, parts.size).joinToString(" ")}"
-            parts.size - 1 -> "${parts.subList(0, mentionIndex).joinToString(" ")} ${red}${parts[mentionIndex]}${white}"
+            0 -> "$red${parts[mentionIndex]}$white ${parts.subList(1, parts.size).joinToString(" ")}"
+            parts.size - 1 -> "${parts.subList(0, mentionIndex).joinToString(" ")} $red${parts[mentionIndex]}$white"
             else -> "${
                 parts.subList(0, mentionIndex).joinToString(" ")
-            } ${red}${parts[mentionIndex]}${white} ${parts.subList(mentionIndex + 1, parts.size).joinToString(" ")}"
+            } $red${parts[mentionIndex]}$white ${parts.subList(mentionIndex + 1, parts.size).joinToString(" ")}"
         }
     } else {
         return mention

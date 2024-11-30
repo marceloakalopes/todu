@@ -1,4 +1,4 @@
-package com.example.todu.utils
+package app.todu.utils
 
 /**
  * Convert a hex color to an *ANSI* escape code.

@@ -1,4 +1,4 @@
-package com.example.todu.utils
+package app.todu.utils
 
 // const val reset = "\u001B[0m"
 const val yellow = "\u001B[33m"
