@@ -18,7 +18,7 @@ fun main(args: Array<String>) {
     createTodoDirectoryIfNotExists()
     createTasksFileIfNotExists()
 
-    val todoTasksList: List<Task> = readData(PATH)
+    val todoTasksList: List<Task> = readData(PATH) // This variable contains all tasks from the file tasks.txt. Formated as a list of Task objects.
 
     when (args[0]) {
         "list" -> handleListCommand(args, todoTasksList)
@@ -73,7 +73,7 @@ private fun handleListCommand(args: Array<String>, todoTasksList: List<Task>) {
  */
 private fun handleNewTaskCommand(todoTasksList: List<Task>) {
     // Get all indexes of tasks and sort them
-    val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList)
+    val listOfIndexes = getAllIndexesOfTasksAndSort(todoTasksList) // Maybe this function is doing too much. It could be split into two functions: one to get all indexes and another to sort them.
 
     // If the list is empty, start with ID 1
     val newTaskId = if (listOfIndexes.isEmpty()) 1 else listOfIndexes.last() + 1
@@ -107,7 +107,7 @@ private fun handleDeleteTaskCommand(args: Array<String>, todoTasksList: List<Tas
         1 -> println("todu: missing task ID or option")
         2 -> {
             if (args[1] == "--checked-all") {
-                if (inputUserYesOrNo("Do you want to delete all checked tasks?")) {
+                if (inputUserYesOrNo("Do you want to delete the following tasks?")) {
                     val newTasksList = deleteAllCheckedTasks(todoTasksList)
                     rewriteData(PATH, newTasksList)
                     println("todu: all checked tasks were deleted")
